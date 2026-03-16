@@ -1,59 +1,269 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Support Plus - Documents</title>
-<link rel="stylesheet" href="./font.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Support Plus - Documents</title>
+  <link rel="stylesheet" href="./font.css" />
+  <style>
+    :root{
+      --blue:#00609d;
+      --blue-soft:#e7f2ff;
+      --text:#243746;
+      --muted:#6b7d8f;
+      --line:#e6edf3;
+      --bg:#f5f9fc;
+      --card:#ffffff;
+      --good-bg:#eaf8ef;
+      --good:#19744b;
+      --warn-bg:#fff4db;
+      --warn:#9a6b00;
+      --bad-bg:#ffe7e7;
+      --bad:#b73b3b;
+      --neutral-bg:#f2f5f8;
+      --neutral:#5a6d7e;
+      --shadow:0 8px 24px rgba(30,60,90,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:NotoSans-Regular,Arial,sans-serif;color:var(--text);background:var(--bg)}
+    .layout{display:flex;min-height:100vh}
+    .sidebar{
+      width:250px;background:#fff;position:relative;box-shadow:2px 0 16px rgba(0,0,0,.06)
+    }
+    .brand{display:flex;align-items:center;gap:12px;padding:24px 20px;border-bottom:1px solid #eef2f7}
+    .brand img{height:42px}
+    .brand .org{font-size:13px;color:#6b7280}
+    .nav{padding:16px 10px 90px}
+    .nav-item{display:flex;align-items:center;gap:12px;padding:14px 14px;border-radius:12px;margin-bottom:8px;color:#6b7280;font-weight:700;text-decoration:none}
+    .nav-item.active{background:#e7f2ff;color:#00609d}
+    .nav-item img{width:28px;height:28px}
+    .wave{position:absolute;left:0;right:0;bottom:0;width:100%}
+    .version{position:absolute;left:20px;bottom:20px;font-size:14px;color:#4b5563;z-index:2}
+    .main{flex:1;padding:28px 28px 40px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+    .topbar h1{margin:0;font-size:28px;color:#00609d}
+    .profile{display:flex;align-items:center;gap:12px;color:#00609d;font-weight:700}
+    .profile .avatar{width:38px;height:38px;border-radius:50%;background:#eef5fb;display:grid;place-items:center;font-size:14px}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;box-shadow:0 4px 18px rgba(15,23,42,.04)}
+    .summary{padding:22px 24px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+    .summary h2{margin:0;font-size:24px}
+    .summary p{margin:6px 0 0;color:#6b7280;font-size:14px}
+    .btn{border:1px solid #d1d5db;background:#111827;color:#fff;border-radius:14px;padding:11px 16px;font-weight:700;cursor:pointer}
+    .btn-light{background:#fff;color:#111827}
+    .controls{padding:18px 24px;border-top:1px solid #eef2f7;border-bottom:1px solid #eef2f7}
+    .controls-grid{display:grid;grid-template-columns:2fr repeat(2,minmax(180px,1fr));gap:12px}
+    .field label{display:block;font-size:12px;font-weight:700;color:#6b7280;margin-bottom:6px}
+    .field input,.field select{width:100%;box-sizing:border-box;border:1px solid #d1d5db;border-radius:14px;padding:11px 12px;font-size:14px;background:#fff}
+    .meta{display:flex;align-items:center;gap:10px;padding:16px 24px;color:#6b7280;font-size:14px}
+    .table-wrap{overflow:auto}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:16px 18px;border-bottom:1px solid #eef2f7;text-align:left;vertical-align:top}
+    th{font-size:12px;color:#6b7280;text-transform:uppercase;letter-spacing:.03em;background:#fafafa}
+    .doc-row{cursor:pointer}
+    .doc-row:hover{background:#f8fbff}
+    .doc-title{display:flex;align-items:flex-start;gap:12px;min-width:280px}
+    .doc-icon{width:38px;height:38px;border-radius:14px;background:#eef4ff;display:grid;place-items:center;flex:0 0 auto}
+    .doc-icon img{width:18px;height:18px}
+    .filename{font-size:12px;color:#6b7280;margin-top:4px}
+    .folder{font-size:12px;color:#6b7280;margin-top:4px}
+    .pill{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid #d1d5db}
+    .pill.bad{background:#fef2f2;color:#991b1b;border-color:#fecaca}
+    .pill.warn{background:#fffbeb;color:#92400e;border-color:#fde68a}
+    .pill.good{background:#ecfdf5;color:#065f46;border-color:#a7f3d0}
+    .pill.neutral{background:#f3f4f6;color:#111827;border-color:#e5e7eb}
+    .demo-note{position:fixed;right:16px;bottom:16px;background:#0b6aa2;color:#fff;padding:8px 12px;border-radius:999px;font:600 12px Arial,sans-serif;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+    @media (max-width:1100px){.controls-grid{grid-template-columns:1fr}.sidebar{width:220px}}
+    @media (max-width:860px){.layout{display:block}.sidebar{width:auto}.main{padding:18px}.nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:24px}.wave,.version{display:none}}
+  </style>
 </head>
+<body data-sidebar-current="documents" data-sidebar-version="v 1.1.7 demo" data-sidebar-org="HKU Nurse Portal Demo">
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="./assets/Logo.f79c58a9aa67e29e632bf19ddaf9660c.svg" alt="logo"/>
+      <div><div style="font-weight:800;font-size:20px;color:#00609d">Support Plus</div><div class="org">HKU Nurse Portal Demo</div></div>
+    </div>
+    <nav class="nav"></nav>
+    <img class="wave" src="./assets/Wave.b7c9b6667e0b96d1b69eb66433533826.svg" alt=""/>
+    <div class="version">v 1.1.7</div>
+  </aside>
 
-<body data-sidebar-current="documents">
+  <div class="main">
+    <div class="topbar">
+      <h1>Documents</h1>
+      <div class="profile">
+        <div class="avatar">JY</div>
+        <div>John Yuen<br><span style="font-weight:400;color:#8b9cac;font-size:12px">HKU</span></div>
+      </div>
+    </div>
 
-<script src="./shared-sidebar.js"></script>
+    <div class="summary card">
+      <div>
+        <h2>Documents</h2>
+        <p>Browse and manage internal documents across all knowledge bases.</p>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-light" id="clearFilters" type="button">Clear</button>
+        <button class="btn" id="refreshBtn" type="button">Refresh</button>
+      </div>
+    </div>
 
-<div class="main">
+    <div class="card">
+      <div class="controls">
+        <div class="controls-grid">
+          <div class="field">
+            <label>Search</label>
+            <input id="searchInput" placeholder="Search documents, paths, KB name, errors…" />
+          </div>
+          <div class="field">
+            <label>Knowledge base</label>
+            <select id="kbFilter">
+              <option value="">All KBs</option>
+              <option value="nccn-guidelines">NCCN Oncology Guidelines</option>
+              <option value="hku-protocols">HKU Internal Protocols</option>
+              <option value="education-library">Patient Education Library</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Status</label>
+            <select id="statusFilter">
+              <option value="">All statuses</option>
+              <option value="ok">Up to date</option>
+              <option value="skipped">No change</option>
+              <option value="error">Needs attention</option>
+              <option value="new">New</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
-<h1>Documents</h1>
-<p>Browse and manage internal documents across knowledge bases.</p>
+      <div class="meta">
+        <div>Tip: click a row to open its knowledge base details.</div>
+        <div style="margin-left:auto">Showing <strong id="showingCount">0</strong>/<strong id="allCount">0</strong></div>
+      </div>
 
-<input id="search" placeholder="Search documents..." style="width:300px;padding:8px">
-
-<br><br>
-
-<table border="1" style="width:100%;border-collapse:collapse">
-
-<tr>
-<th>Title</th>
-<th>Location</th>
-<th>Status</th>
-<th>Last ingested</th>
-<th>Action</th>
-</tr>
-
-<tr onclick="openSource('nccn-guidelines')" style="cursor:pointer">
-<td>Breast Cancer Guideline</td>
-<td>NCCN Oncology Guidelines</td>
-<td>Up to date</td>
-<td>2026-03-11</td>
-<td><button onclick="event.stopPropagation();openSource('nccn-guidelines')">Open KB</button></td>
-</tr>
-
-<tr onclick="openSource('hku-protocols')" style="cursor:pointer">
-<td>Nursing Protocol v3</td>
-<td>HKU Internal Protocols</td>
-<td>Needs attention</td>
-<td>2026-03-08</td>
-<td><button onclick="event.stopPropagation();openSource('hku-protocols')">Open KB</button></td>
-</tr>
-
-</table>
-
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Location</th>
+              <th>Status</th>
+              <th>Last ingested</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="docsBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
-<script>
-function openSource(id){
-  window.location = "source-details.html?id=" + id;
-}
-</script>
+<div class="demo-note">Documents demo</div>
 
+<script src="./shared-sidebar.js"></script>
+<script>
+const docData = [
+  {
+    id:'doc_201', sourceId:'nccn-guidelines', sourceTitle:'NCCN Oncology Guidelines',
+    title:'Breast Cancer Guideline', filename:'Breast_Cancer_Guideline.pdf',
+    folder:'content/NCCN', status:'ok', last:'2026-03-11 12:10', error:''
+  },
+  {
+    id:'doc_202', sourceId:'nccn-guidelines', sourceTitle:'NCCN Oncology Guidelines',
+    title:'Lung Cancer Guideline', filename:'Lung_Cancer_Guideline.pdf',
+    folder:'content/NCCN', status:'ok', last:'2026-03-11 12:09', error:''
+  },
+  {
+    id:'doc_203', sourceId:'hku-protocols', sourceTitle:'HKU Internal Protocols',
+    title:'Nursing Protocol v3', filename:'Nursing_Protocol_v3.docx',
+    folder:'content/HKU/Oncology', status:'error', last:'2026-03-08 16:45', error:'Folder parse failed on /Triage'
+  },
+  {
+    id:'doc_204', sourceId:'hku-protocols', sourceTitle:'HKU Internal Protocols',
+    title:'Oncology Triage Escalation', filename:'Oncology_Triage_Escalation.docx',
+    folder:'content/HKU/Oncology', status:'new', last:'—', error:''
+  },
+  {
+    id:'doc_205', sourceId:'education-library', sourceTitle:'Patient Education Library',
+    title:'Managing Nausea After Chemotherapy', filename:'Managing_Nausea_After_Chemotherapy.docx',
+    folder:'content/PatientEducation', status:'skipped', last:'2026-03-10 09:35', error:''
+  }
+];
+
+const body = document.getElementById('docsBody');
+const searchInput = document.getElementById('searchInput');
+const kbFilter = document.getElementById('kbFilter');
+const statusFilter = document.getElementById('statusFilter');
+
+function pill(status){
+  if(status==='ok') return '<span class="pill good">Up to date</span>';
+  if(status==='skipped') return '<span class="pill neutral">No change</span>';
+  if(status==='error') return '<span class="pill bad">Needs attention</span>';
+  if(status==='new') return '<span class="pill warn">New</span>';
+  return '<span class="pill neutral">'+status+'</span>';
+}
+function rowTarget(sourceId){
+  return './source-details.html?id=' + encodeURIComponent(sourceId);
+}
+function render(){
+  const q = searchInput.value.trim().toLowerCase();
+  const kb = kbFilter.value;
+  const st = statusFilter.value;
+
+  const filtered = docData.filter(r => {
+    if (kb && r.sourceId !== kb) return false;
+    if (st && r.status !== st) return false;
+    if (!q) return true;
+    return [r.title, r.filename, r.folder, r.sourceTitle, r.error].join(' ').toLowerCase().includes(q);
+  });
+
+  body.innerHTML = filtered.map(r => `
+    <tr class="doc-row" data-href="${rowTarget(r.sourceId)}">
+      <td>
+        <div class="doc-title">
+          <div class="doc-icon"><img src="./assets/fileBlue.svg" alt=""></div>
+          <div>
+            <div style="font-weight:800">${r.title}</div>
+            <div class="filename">${r.filename}</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div style="font-weight:700">${r.sourceTitle}</div>
+        <div class="folder">${r.folder || '—'}</div>
+      </td>
+      <td>
+        ${pill(r.status)}
+        ${r.status === 'error' && r.error ? `<div class="folder" style="max-width:220px">${r.error}</div>` : ''}
+      </td>
+      <td>${r.last}</td>
+      <td>
+        <button class="btn btn-light" onclick="event.stopPropagation();location.href='${rowTarget(r.sourceId)}'">Open KB</button>
+      </td>
+    </tr>
+  `).join('') || '<tr><td colspan="5" style="color:#6b7280">No documents found.</td></tr>';
+
+  body.querySelectorAll('.doc-row').forEach(tr => {
+    tr.addEventListener('click', () => {
+      location.href = tr.getAttribute('data-href');
+    });
+  });
+
+  document.getElementById('showingCount').textContent = filtered.length;
+  document.getElementById('allCount').textContent = docData.length;
+}
+
+[searchInput, kbFilter, statusFilter].forEach(el => el.addEventListener('input', render));
+document.getElementById('clearFilters').onclick = () => {
+  searchInput.value = '';
+  kbFilter.value = '';
+  statusFilter.value = '';
+  render();
+};
+document.getElementById('refreshBtn').onclick = render;
+render();
+</script>
 </body>
 </html>
