@@ -1,81 +1,482 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Source Details</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Support Plus - Source Details</title>
+  <link rel="stylesheet" href="./font.css" />
+  <style>
+    :root{
+      --blue:#00609d;
+      --blue-soft:#e7f2ff;
+      --text:#243746;
+      --muted:#6b7d8f;
+      --line:#e6edf3;
+      --bg:#f5f9fc;
+      --card:#ffffff;
+      --good-bg:#eaf8ef;
+      --good:#19744b;
+      --warn-bg:#fff4db;
+      --warn:#9a6b00;
+      --bad-bg:#ffe7e7;
+      --bad:#b73b3b;
+      --neutral-bg:#f2f5f8;
+      --neutral:#5a6d7e;
+      --shadow:0 8px 24px rgba(30,60,90,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:NotoSans-Regular,Arial,sans-serif;color:var(--text);background:var(--bg)}
+    .app{display:flex; min-height:100vh}
+    .sidebar{
+      width:220px; background:#fff; border-right:1px solid var(--line);
+      position:fixed; left:0; top:0; bottom:0; padding:16px 0 72px; overflow:auto;
+    }
+    .brand{display:flex; align-items:center; gap:10px; padding:0 18px 18px; border-bottom:1px solid var(--line); margin-bottom:12px}
+    .brand img{height:40px}
+    .brand-title{font-family:NotoSans-Bold,Arial,sans-serif;color:var(--blue);font-size:18px}
+    .nav{padding:0 10px}
+    .nav a{
+      display:flex; align-items:center; gap:12px; text-decoration:none; color:#667;
+      padding:12px 14px; border-radius:14px; margin:6px 0; font-size:14px;
+    }
+    .nav a img{width:24px;height:24px}
+    .nav a.active{background:var(--blue-soft); color:var(--blue); font-family:NotoSans-Bold,Arial,sans-serif}
+    .nav a:hover{background:#f4f8fb}
+    .version{position:absolute; left:18px; bottom:18px; color:#7e90a0; font-size:12px}
+    .main{margin-left:220px; flex:1; min-width:0}
+    .topbar{
+      height:72px; background:#fff; border-bottom:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between; padding:0 28px;
+      position:sticky; top:0; z-index:5;
+    }
+    .topbar h1{margin:0; font-size:22px; color:var(--blue); font-family:NotoSans-Bold,Arial,sans-serif}
+    .profile{display:flex; align-items:center; gap:12px; color:var(--blue); font-family:NotoSans-Bold,Arial,sans-serif}
+    .profile .avatar{width:38px;height:38px;border-radius:50%;background:#eef5fb;display:grid;place-items:center;font-size:14px}
+    .content{padding:28px}
+    .breadcrumbs{display:flex; align-items:center; gap:10px; color:#768899; font-size:14px; margin-bottom:18px}
+    .breadcrumbs a{text-decoration:none; color:#506577}
+    .card{
+      background:#fff; border:1px solid var(--line); border-radius:24px; box-shadow:var(--shadow); padding:22px;
+    }
+    .grid{display:grid; gap:18px}
+    .grid.two{grid-template-columns:1fr}
+    .grid.three{grid-template-columns:1fr}
+    @media (min-width:1100px){
+      .grid.two{grid-template-columns:1.1fr .9fr}
+      .grid.three{grid-template-columns:repeat(3,1fr)}
+    }
+    .row{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+    .spaced{display:flex; justify-content:space-between; gap:12px; align-items:flex-start; flex-wrap:wrap}
+    .title-xl{font-size:28px; font-family:NotoSans-Bold,Arial,sans-serif}
+    .sub{font-size:14px; color:var(--muted); margin-top:6px}
+    .btn{
+      border:1px solid var(--line); background:#fff; color:var(--text);
+      border-radius:14px; padding:11px 16px; font-size:14px; cursor:pointer; text-decoration:none;
+      display:inline-flex; align-items:center; justify-content:center;
+    }
+    .btn.primary{background:var(--blue); color:#fff; border-color:var(--blue)}
+    .btn.red{background:#b73b3b; color:#fff; border-color:#b73b3b}
+    .badge{
+      display:inline-flex; align-items:center; padding:6px 10px; border-radius:999px; font-size:12px;
+      font-family:NotoSans-Bold,Arial,sans-serif;
+    }
+    .good{background:var(--good-bg); color:var(--good)}
+    .warn{background:var(--warn-bg); color:var(--warn)}
+    .bad{background:var(--bad-bg); color:var(--bad)}
+    .neutral{background:var(--neutral-bg); color:var(--neutral)}
+    .label{font-size:12px; color:#75889b; font-family:NotoSans-Bold,Arial,sans-serif; margin-bottom:8px}
+    input[type=text], input[type=number], select, textarea{
+      width:100%; border:1px solid var(--line); border-radius:16px; padding:12px 14px; font-size:14px; font-family:inherit;
+      background:#fff;
+    }
+    textarea{min-height:120px; resize:vertical}
+    .mini{font-size:12px; color:var(--muted); margin-top:8px}
+    .section-title{font-size:18px; font-family:NotoSans-Bold,Arial,sans-serif; margin-bottom:6px}
+    table{width:100%; border-collapse:collapse}
+    th,td{padding:13px 14px; border-bottom:1px solid #edf2f7; text-align:left; font-size:14px; vertical-align:top}
+    th{background:#f9fbfd; color:#65798a; font-family:NotoSans-Bold,Arial,sans-serif}
+    .panel-note{font-size:13px; color:var(--muted)}
+    .danger{background:#fff6f6; border-color:#f0d2d2}
+    code{background:#f4f7fa; padding:2px 6px; border-radius:8px}
+    .job-log{
+      background:#f7fafc; border:1px solid var(--line); border-radius:18px; padding:14px; font-family:monospace; font-size:12px;
+      white-space:pre-wrap; color:#445767;
+    }
+    .toggle{display:flex; align-items:center; gap:10px; font-size:14px}
+    @media (max-width:900px){
+      .sidebar{position:static; width:100%; height:auto}
+      .main{margin-left:0}
+      .app{display:block}
+      .topbar{position:static}
+      .content{padding:18px}
+    }
+  </style>
 </head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="./assets/Logo.f79c58a9aa67e29e632bf19ddaf9660c.svg" onerror="this.style.display='none'">
+      <div class="brand-title">Support Plus</div>
+    </div>
+    <nav class="nav">
+      <a href="./dashboard.html"><img src="./assets/dashboardGray.svg" onerror="this.style.display='none'"><span>Dashboard</span></a>
+      <a href="#"><img src="./assets/clockGray.svg" onerror="this.style.display='none'"><span>Case Management</span></a>
+      <a href="./nurse-tickets.html"><img src="./assets/file-lines.08dbc7ec491f453696227b1a3407a35e.svg" onerror="this.style.display='none'"><span>Nurse Tickets</span></a>
+      <a href="./nurse-symptoms.html"><img src="./assets/chartGray.svg" onerror="this.style.display='none'"><span>Nurse Symptoms</span></a>
+      <a href="#"><img src="./assets/patientGray.svg" onerror="this.style.display='none'"><span>Patient Management</span></a>
+      <a href="#"><img src="./assets/carerGray.svg" onerror="this.style.display='none'"><span>Carer Management</span></a>
+      <a href="#"><img src="./assets/peopleGray.svg" onerror="this.style.display='none'"><span>Staff Management</span></a>
+      <a href="#"><img src="./assets/auditLogGray.svg" onerror="this.style.display='none'"><span>Audit Log</span></a>
+      <a href="./trusted-sources.html" class="active"><img src="./assets/databaseBlue.svg" onerror="this.style.display='none'"><span>Trusted Sources</span></a>
+      <a href="#"><img src="./assets/settingGray.svg" onerror="this.style.display='none'"><span>Settings</span></a>
+    </nav>
+    <div class="version">v 1.1.7 demo</div>
+  </aside>
 
-<body style="padding:40px;font-family:Arial">
+  <main class="main">
+    <div class="topbar">
+      <h1>Source Details</h1>
+      <div class="profile">
+        <div class="avatar">JY</div>
+        <div>John Yuen<br><span style="font-family:NotoSans-Regular,Arial,sans-serif;color:#8b9cac;font-size:12px">HKU</span></div>
+      </div>
+    </div>
 
-<a href="trusted-sources.html">← Knowledge base</a>
+    <div class="content">
+      <div class="breadcrumbs">
+        <a href="./trusted-sources.html">← Knowledge base</a>
+        <span>/</span>
+        <span id="crumbName">Source</span>
+      </div>
 
-<h1>Cancer Council</h1>
+      <section class="card" style="margin-bottom:18px">
+        <div class="spaced">
+          <div>
+            <div class="title-xl" id="sourceTitle">Cancer Council</div>
+            <div class="row" style="margin-top:12px">
+              <span class="badge neutral" id="sourceTypeBadge">type: external_url</span>
+              <span class="badge good" id="sourceStatusBadge">status: active</span>
+              <span class="panel-note">id: <code id="sourceIdCode">cancer-council</code></span>
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn primary" onclick="alert('Demo only: save name')">Save name</button>
+            <button class="btn" onclick="location.reload()">Refresh</button>
+          </div>
+        </div>
+      </section>
 
-<p>type: external_url</p>
-<p>status: active</p>
+      <div class="grid two">
+        <section class="card" id="crawlSettingsCard">
+          <div class="section-title">Crawl settings</div>
+          <div class="panel-note" style="margin-bottom:16px">Controls what can be crawled, blocked, and indexed.</div>
 
-<h2>Sync</h2>
+          <div style="margin-bottom:14px">
+            <div class="label">allowed_domains (JSON array)</div>
+            <textarea id="allowedDomains"></textarea>
+            <div class="mini">Example: ["www.example.com","example.com"]</div>
+          </div>
 
-<button>Sync now</button>
-<button>Rebuild all pages</button>
+          <div style="margin-bottom:14px">
+            <div class="label">deny_patterns (JSON array)</div>
+            <textarea id="denyPatterns"></textarea>
+            <div class="mini">Common: ["/search","/login","\\?"]</div>
+          </div>
 
-<br><br>
+          <div class="row">
+            <div style="flex:0 0 180px">
+              <div class="label">crawl_depth</div>
+              <input type="number" id="crawlDepth" min="0" max="10">
+            </div>
+            <div style="flex:0 0 180px">
+              <div class="label">max_pages</div>
+              <input type="number" id="maxPages" min="1" max="2000">
+            </div>
+            <label class="toggle" style="margin-top:24px">
+              <input type="checkbox" id="seedDiscoveryOnly"> seed_discovery_only
+            </label>
+          </div>
 
-<h2>Items</h2>
+          <div class="row" style="margin-top:18px">
+            <button class="btn primary" onclick="alert('Demo only: save settings')">Save settings</button>
+          </div>
+        </section>
 
-<table border="1" cellpadding="10" style="border-collapse:collapse;width:100%">
+        <section class="card">
+          <div class="section-title">Sync</div>
+          <div class="panel-note" style="margin-bottom:16px">Crawl + ingest pages or documents into the knowledge base.</div>
 
-<tr>
-<th>Kind</th>
-<th>URL</th>
-<th>Status</th>
-<th>Last ingested</th>
-<th>Action</th>
-</tr>
+          <div class="grid three">
+            <div class="card" style="padding:16px">
+              <div class="label">Change detection</div>
+              <div style="font-family:NotoSans-Bold,Arial,sans-serif">SHA-256 content hash</div>
+              <div class="mini">Skips ingest when content is unchanged.</div>
+            </div>
+            <div class="card" style="padding:16px">
+              <div class="label">Metadata enrichment</div>
+              <div style="font-family:NotoSans-Bold,Arial,sans-serif">Source URL + Title</div>
+              <div class="mini">Stored in vector payload for citations.</div>
+            </div>
+            <div class="card" style="padding:16px">
+              <div class="label">Sync frequency</div>
+              <select id="syncSchedule">
+                <option>Manual only</option>
+                <option>Daily (midnight)</option>
+                <option>Weekly (Sunday midnight)</option>
+              </select>
+              <div class="row" style="margin-top:10px">
+                <button class="btn primary" onclick="alert('Demo only: save schedule')">Save schedule</button>
+                <button class="btn" onclick="resetSchedule()">Reset</button>
+              </div>
+            </div>
+          </div>
 
-<tr>
-<td>page</td>
-<td>https://www.cancer.org.au/cancer-information</td>
-<td>ok</td>
-<td>2026-03-10</td>
-<td><button>Edit</button></td>
-</tr>
+          <div class="row" style="margin-top:18px">
+            <button class="btn primary" id="syncPrimaryBtn" onclick="alert('Demo only: sync now')">Sync now</button>
+            <button class="btn" id="syncSecondaryBtn" onclick="alert('Demo only: rebuild all')">Rebuild all pages (slow)</button>
+          </div>
 
-<tr>
-<td>page</td>
-<td>https://www.cancer.org.au/treatment</td>
-<td>ok</td>
-<td>2026-03-10</td>
-<td><button>Edit</button></td>
-</tr>
+          <div style="margin-top:16px">
+            <div class="label">Advanced options</div>
+            <div class="row">
+              <input type="text" id="tempSeed" placeholder="Temporary start page override (optional)" style="flex:1; min-width:280px">
+              <label class="toggle"><input type="checkbox" checked> only_if_changed</label>
+            </div>
+            <div class="mini" id="advancedHelp">Temporary start page override runs this job from a different page once.</div>
+          </div>
+        </section>
+      </div>
 
-</table>
+      <section class="card" style="margin-top:18px">
+        <div class="section-title" id="addItemTitle">Add start page (Seed)</div>
+        <div class="panel-note" id="addItemHelp" style="margin-bottom:14px">Add the website page where crawling should start.</div>
+        <div class="row">
+          <span class="badge neutral" id="addItemType">type: web page</span>
+          <input type="text" id="newLocator" placeholder="https://example.com/start-page" style="flex:1; min-width:300px">
+          <button class="btn primary" onclick="alert('Demo only: add item')">Add</button>
+        </div>
+      </section>
 
-<br>
+      <section class="card" style="margin-top:18px">
+        <div class="spaced" style="margin-bottom:12px">
+          <div>
+            <div class="section-title">Items</div>
+            <div class="panel-note">Filter and review source items.</div>
+          </div>
+          <div class="row">
+            <select id="statusFilter">
+              <option>All statuses</option>
+              <option>ok</option>
+              <option>new</option>
+              <option>skipped</option>
+              <option>error</option>
+            </select>
+            <input type="text" id="itemSearch" placeholder="Search locator…" style="width:220px">
+            <label class="toggle"><input type="checkbox" checked> exclude_pruned</label>
+          </div>
+        </div>
+        <table id="itemsTable">
+          <thead>
+            <tr>
+              <th>Kind</th>
+              <th>Locator</th>
+              <th>Status</th>
+              <th>Use in AI</th>
+              <th>Last ingested</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
 
-<h2>Recent Jobs</h2>
+      <section class="card" style="margin-top:18px">
+        <div class="section-title">Recent jobs</div>
+        <div class="panel-note" style="margin-bottom:12px">Recent crawl / ingest history.</div>
+        <table id="jobsTable">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Log</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="job-log" id="jobLog" style="margin-top:14px">Click “View log” to preview a demo job log.</div>
+      </section>
 
-<table border="1" cellpadding="10">
+      <section class="card danger" style="margin-top:18px">
+        <div class="section-title" style="color:#b73b3b">Danger zone</div>
+        <div class="panel-note" style="color:#8c5151; margin-bottom:12px">This will permanently remove this knowledge base and all its pages.</div>
+        <button class="btn red" onclick="alert('Demo only: delete knowledge base')">Delete knowledge base</button>
+      </section>
+    </div>
+  </main>
+</div>
 
-<tr>
-<th>Type</th>
-<th>Status</th>
-<th>Date</th>
-</tr>
+<script>
+  const DATA = {
+    "cancer-council": {
+      title: "Cancer Council",
+      type: "external_url",
+      status: "active",
+      sync: "Daily (midnight)",
+      allowed_domains: ["www.cancer.org.au","cancer.org.au"],
+      deny_patterns: ["/search","/login","?"],
+      crawl_depth: 2,
+      max_pages: 100,
+      seed_discovery_only: true,
+      items: [
+        {kind:"page", locator:"https://www.cancer.org.au/", status:"ok", enabled:true, last:"2026-03-14 09:30"},
+        {kind:"page", locator:"https://www.cancer.org.au/cancer-information/", status:"ok", enabled:true, last:"2026-03-14 09:26"},
+        {kind:"page", locator:"https://www.cancer.org.au/treatment", status:"skipped", enabled:true, last:"2026-03-14 09:21"}
+      ],
+      jobs: [
+        {type:"crawl", status:"done", created:"2026-03-14 09:30", log:"[09:30] crawl started\\n[09:31] fetched home page\\n[09:33] indexed 12 changed pages\\n[09:34] job complete"},
+        {type:"reingest", status:"queued", created:"2026-03-13 21:05", log:"Job is queued."}
+      ]
+    },
+    "who-cancer": {
+      title: "WHO Cancer",
+      type: "external_url",
+      status: "healthy",
+      sync: "Weekly (Sunday midnight)",
+      allowed_domains: ["www.who.int","who.int"],
+      deny_patterns: ["/about","/search"],
+      crawl_depth: 2,
+      max_pages: 60,
+      seed_discovery_only: true,
+      items: [
+        {kind:"page", locator:"https://www.who.int/health-topics/cancer", status:"ok", enabled:true, last:"2026-03-13 18:20"},
+        {kind:"page", locator:"https://www.who.int/news-room/fact-sheets/detail/cancer", status:"ok", enabled:true, last:"2026-03-13 18:17"}
+      ],
+      jobs: [
+        {type:"crawl", status:"done", created:"2026-03-13 18:20", log:"[18:20] sync started\\n[18:23] 2 pages updated\\n[18:23] sync finished"}
+      ]
+    },
+    "nccn-guidelines": {
+      title: "NCCN Oncology Guidelines",
+      type: "internal_file",
+      status: "active",
+      sync: "Manual only",
+      allowed_domains: [],
+      deny_patterns: [],
+      crawl_depth: 0,
+      max_pages: 0,
+      seed_discovery_only: false,
+      items: [
+        {kind:"file", locator:"content/NCCN/Breast_Cancer_Guideline.pdf", status:"ok", enabled:true, last:"2026-03-11 12:10"},
+        {kind:"file", locator:"content/NCCN/Lung_Cancer_Guideline.pdf", status:"ok", enabled:true, last:"2026-03-11 12:09"},
+        {kind:"file", locator:"content/NCCN/Supportive_Care", status:"new", enabled:true, last:"—"}
+      ],
+      jobs: [
+        {type:"ingest", status:"done", created:"2026-03-11 12:10", log:"[12:10] ingest started\\n[12:12] 42 documents embedded\\n[12:12] done"},
+        {type:"reingest", status:"running", created:"2026-03-14 08:55", log:"[08:55] rebuild started\\n[08:59] 17/42 documents completed\\n[09:02] still running..."}
+      ]
+    },
+    "hku-protocols": {
+      title: "HKU Internal Protocols",
+      type: "internal_file",
+      status: "paused",
+      sync: "Manual only",
+      allowed_domains: [],
+      deny_patterns: [],
+      crawl_depth: 0,
+      max_pages: 0,
+      seed_discovery_only: false,
+      items: [
+        {kind:"file", locator:"content/HKU/Oncology/Nursing_Protocol_v3.docx", status:"ok", enabled:true, last:"2026-03-08 16:45"},
+        {kind:"file", locator:"content/HKU/Oncology/Triage", status:"error", enabled:false, last:"2026-03-08 16:41"}
+      ],
+      jobs: [
+        {type:"ingest", status:"error", created:"2026-03-08 16:45", log:"[16:45] ingest started\\n[16:47] folder parse failed on /Triage\\n[16:47] job ended with error"}
+      ]
+    }
+  };
 
-<tr>
-<td>crawl</td>
-<td>done</td>
-<td>2026-03-10</td>
-</tr>
+  function qs(name){
+    return new URLSearchParams(location.search).get(name);
+  }
+  function badgeClass(status){
+    status = (status || '').toLowerCase();
+    if(['active','healthy','ok','done'].includes(status)) return 'good';
+    if(['paused','running','skipped','queued','new'].includes(status)) return 'warn';
+    if(['error'].includes(status)) return 'bad';
+    return 'neutral';
+  }
+  function resetSchedule(){
+    document.getElementById('syncSchedule').selectedIndex = 0;
+  }
 
-<tr>
-<td>reingest</td>
-<td>running</td>
-<td>2026-03-12</td>
-</tr>
+  const id = qs('id') || 'cancer-council';
+  const source = DATA[id] || DATA['cancer-council'];
 
-</table>
+  document.getElementById('sourceTitle').textContent = source.title;
+  document.getElementById('crumbName').textContent = source.title;
+  document.getElementById('sourceIdCode').textContent = id;
+  document.getElementById('sourceTypeBadge').textContent = 'type: ' + source.type;
+  document.getElementById('sourceStatusBadge').textContent = 'status: ' + source.status;
+  document.getElementById('sourceStatusBadge').className = 'badge ' + badgeClass(source.status);
 
+  document.getElementById('allowedDomains').value = JSON.stringify(source.allowed_domains, null, 2);
+  document.getElementById('denyPatterns').value = JSON.stringify(source.deny_patterns, null, 2);
+  document.getElementById('crawlDepth').value = source.crawl_depth;
+  document.getElementById('maxPages').value = source.max_pages;
+  document.getElementById('seedDiscoveryOnly').checked = !!source.seed_discovery_only;
+  [...document.getElementById('syncSchedule').options].forEach((o,i)=>{
+    if(o.text === source.sync) document.getElementById('syncSchedule').selectedIndex = i;
+  });
+
+  const web = source.type === 'external_url';
+  document.getElementById('crawlSettingsCard').style.display = web ? '' : 'none';
+  document.getElementById('syncPrimaryBtn').textContent = web ? 'Sync now' : 'Update internal documents';
+  document.getElementById('syncSecondaryBtn').textContent = web ? 'Rebuild all pages (slow)' : 'Rebuild all documents (slow)';
+  document.getElementById('advancedHelp').textContent = web
+    ? 'Temporary start page override runs this job from a different page once.'
+    : 'only_if_changed avoids re-embedding content that has not changed.';
+  document.getElementById('tempSeed').placeholder = web ? 'Temporary start page override (optional)' : 'Folder override (optional)';
+  document.getElementById('addItemTitle').textContent = web ? 'Add start page (Seed)' : 'Add document';
+  document.getElementById('addItemHelp').textContent = web
+    ? 'Add the website page where crawling should start. Then click Sync now.'
+    : 'Add a document file or folder locator relative to KB_CONTENT_ROOT.';
+  document.getElementById('addItemType').textContent = web ? 'type: web page' : 'type: internal document';
+  document.getElementById('newLocator').placeholder = web ? 'https://example.com/start-page' : 'content/Cancer/a.docx or content/Cancer';
+
+  const itemsBody = document.querySelector('#itemsTable tbody');
+  source.items.forEach(it=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><span class="badge neutral">${it.kind}</span></td>
+      <td><code>${it.locator}</code></td>
+      <td><span class="badge ${badgeClass(it.status)}">${it.status}</span></td>
+      <td><span class="badge ${it.enabled ? 'good':'warn'}">${it.enabled ? 'enabled':'disabled'}</span></td>
+      <td>${it.last}</td>
+      <td><button class="btn" style="padding:8px 12px" onclick="alert('Demo only: edit item')">Edit</button></td>
+    `;
+    itemsBody.appendChild(tr);
+  });
+
+  const jobsBody = document.querySelector('#jobsTable tbody');
+  source.jobs.forEach((job, idx)=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><span class="badge neutral">${job.type}</span></td>
+      <td><span class="badge ${badgeClass(job.status)}">${job.status}</span></td>
+      <td>${job.created}</td>
+      <td><button class="btn" style="padding:8px 12px" data-log="${idx}">View log</button></td>
+    `;
+    jobsBody.appendChild(tr);
+  });
+
+  document.querySelectorAll('[data-log]').forEach(btn=>{
+    btn.addEventListener('click', function(){
+      const job = source.jobs[Number(btn.getAttribute('data-log'))];
+      document.getElementById('jobLog').textContent = job.log;
+    });
+  });
+</script>
 </body>
 </html>

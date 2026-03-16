@@ -1,54 +1,285 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Trusted Sources</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Support Plus - Trusted Sources</title>
+  <link rel="stylesheet" href="./font.css" />
+  <style>
+    :root{
+      --blue:#00609d;
+      --blue-soft:#e7f2ff;
+      --text:#243746;
+      --muted:#6b7d8f;
+      --line:#e6edf3;
+      --bg:#f5f9fc;
+      --card:#ffffff;
+      --good-bg:#eaf8ef;
+      --good:#19744b;
+      --warn-bg:#fff4db;
+      --warn:#9a6b00;
+      --bad-bg:#ffe7e7;
+      --bad:#b73b3b;
+      --neutral-bg:#f2f5f8;
+      --neutral:#5a6d7e;
+      --shadow:0 8px 24px rgba(30,60,90,.08);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: NotoSans-Regular, Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+    }
+    .app{display:flex; min-height:100vh;}
+    .sidebar{
+      width:220px; background:#fff; border-right:1px solid var(--line);
+      position:fixed; left:0; top:0; bottom:0; padding:16px 0 72px; overflow:auto;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; padding:0 18px 18px; border-bottom:1px solid var(--line);
+      margin-bottom:12px;
+    }
+    .brand img{height:40px}
+    .brand-title{font-family:NotoSans-Bold, Arial, sans-serif; color:var(--blue); font-size:18px}
+    .nav{padding:0 10px}
+    .nav a{
+      display:flex; align-items:center; gap:12px; text-decoration:none; color:#667;
+      padding:12px 14px; border-radius:14px; margin:6px 0; font-size:14px;
+    }
+    .nav a img{width:24px; height:24px}
+    .nav a.active{background:var(--blue-soft); color:var(--blue); font-family:NotoSans-Bold, Arial, sans-serif}
+    .nav a:hover{background:#f4f8fb}
+    .version{position:absolute; left:18px; bottom:18px; color:#7e90a0; font-size:12px}
+    .main{margin-left:220px; flex:1; min-width:0;}
+    .topbar{
+      height:72px; background:#fff; border-bottom:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between; padding:0 28px;
+      position:sticky; top:0; z-index:5;
+    }
+    .topbar h1{margin:0; font-size:22px; color:var(--blue); font-family:NotoSans-Bold, Arial, sans-serif}
+    .profile{display:flex; align-items:center; gap:12px; color:var(--blue); font-family:NotoSans-Bold, Arial, sans-serif}
+    .profile .avatar{
+      width:38px; height:38px; border-radius:50%; background:#eef5fb; display:grid; place-items:center;
+      font-size:14px;
+    }
+    .content{padding:28px}
+    .page-head{display:flex; justify-content:space-between; align-items:flex-start; gap:18px; margin-bottom:20px}
+    .subtitle{color:var(--muted); font-size:14px; margin-top:6px}
+    .actions{display:flex; gap:10px; flex-wrap:wrap}
+    .btn{
+      border:1px solid var(--line); background:#fff; color:var(--text);
+      border-radius:14px; padding:11px 16px; font-size:14px; cursor:pointer;
+      box-shadow:var(--shadow); text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
+    }
+    .btn.primary{background:var(--blue); border-color:var(--blue); color:#fff}
+    .search-card,.table-card{
+      background:var(--card); border:1px solid var(--line); border-radius:24px; box-shadow:var(--shadow);
+    }
+    .search-card{padding:18px 20px; margin-bottom:18px}
+    .search-row{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+    .search-row input{
+      flex:1; min-width:240px; border:1px solid var(--line); border-radius:16px; padding:12px 14px; font-size:14px;
+    }
+    .stats-note{margin-top:10px; color:var(--muted); font-size:12px}
+    .section-title{
+      padding:18px 22px; border-bottom:1px solid var(--line);
+      font-family:NotoSans-Bold, Arial, sans-serif; font-size:18px;
+    }
+    .table-wrap{overflow:auto}
+    table{width:100%; border-collapse:collapse; min-width:980px}
+    th,td{padding:14px 16px; text-align:left; border-bottom:1px solid #eef3f7; font-size:14px; vertical-align:top}
+    th{background:#f9fbfd; color:#617487; font-family:NotoSans-Bold, Arial, sans-serif; white-space:nowrap}
+    tr[data-href]{cursor:pointer}
+    tr[data-href]:hover{background:#fbfdff}
+    .badge{
+      display:inline-flex; align-items:center; padding:6px 10px; border-radius:999px; font-size:12px;
+      font-family:NotoSans-Bold, Arial, sans-serif;
+    }
+    .good{background:var(--good-bg); color:var(--good)}
+    .warn{background:var(--warn-bg); color:var(--warn)}
+    .bad{background:var(--bad-bg); color:var(--bad)}
+    .neutral{background:var(--neutral-bg); color:var(--neutral)}
+    .link{color:#1a69a8; text-decoration:none; word-break:break-all}
+    .muted{color:var(--muted)}
+    .cell-actions{display:flex; gap:8px}
+    .mini-btn{
+      padding:8px 10px; border:1px solid var(--line); background:#fff; border-radius:12px; font-size:12px; cursor:pointer;
+    }
+    .tip{padding:14px 22px; color:var(--muted); font-size:12px}
+    .two-col{display:grid; grid-template-columns:1fr; gap:18px}
+    @media (min-width:1200px){.two-col{grid-template-columns:1fr 1fr}}
+    @media (max-width:900px){
+      .sidebar{position:static; width:100%; height:auto}
+      .main{margin-left:0}
+      .app{display:block}
+      .topbar{position:static}
+      .content{padding:18px}
+    }
+  </style>
 </head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="./assets/Logo.f79c58a9aa67e29e632bf19ddaf9660c.svg" onerror="this.style.display='none'">
+      <div class="brand-title">Support Plus</div>
+    </div>
+    <nav class="nav">
+      <a href="./dashboard.html"><img src="./assets/dashboardGray.svg" onerror="this.style.display='none'"><span>Dashboard</span></a>
+      <a href="#"><img src="./assets/clockGray.svg" onerror="this.style.display='none'"><span>Case Management</span></a>
+      <a href="./nurse-tickets.html"><img src="./assets/file-lines.08dbc7ec491f453696227b1a3407a35e.svg" onerror="this.style.display='none'"><span>Nurse Tickets</span></a>
+      <a href="./nurse-symptoms.html"><img src="./assets/chartGray.svg" onerror="this.style.display='none'"><span>Nurse Symptoms</span></a>
+      <a href="#"><img src="./assets/patientGray.svg" onerror="this.style.display='none'"><span>Patient Management</span></a>
+      <a href="#"><img src="./assets/carerGray.svg" onerror="this.style.display='none'"><span>Carer Management</span></a>
+      <a href="#"><img src="./assets/peopleGray.svg" onerror="this.style.display='none'"><span>Staff Management</span></a>
+      <a href="#"><img src="./assets/auditLogGray.svg" onerror="this.style.display='none'"><span>Audit Log</span></a>
+      <a href="./trusted-sources.html" class="active"><img src="./assets/databaseBlue.svg" onerror="this.style.display='none'"><span>Trusted Sources</span></a>
+      <a href="#"><img src="./assets/settingGray.svg" onerror="this.style.display='none'"><span>Settings</span></a>
+    </nav>
+    <div class="version">v 1.1.7 demo</div>
+  </aside>
 
-<body style="padding:40px;font-family:Arial">
+  <main class="main">
+    <div class="topbar">
+      <h1>Trusted Sources</h1>
+      <div class="profile">
+        <div class="avatar">JY</div>
+        <div>John Yuen<br><span style="font-family:NotoSans-Regular,Arial,sans-serif;color:#8b9cac;font-size:12px">HKU</span></div>
+      </div>
+    </div>
 
-<h1>Trusted Sources</h1>
-<p>Manage your knowledge base sources.</p>
+    <div class="content">
+      <div class="page-head">
+        <div>
+          <div style="font-size:30px;font-family:NotoSans-Bold,Arial,sans-serif">Trusted Sources</div>
+          <div class="subtitle">Manage your knowledge base sources and ingestion pipeline.</div>
+        </div>
+        <div class="actions">
+          <button class="btn primary" onclick="alert('Demo only: add trusted source modal')">Add</button>
+          <button class="btn" onclick="location.reload()">Refresh</button>
+        </div>
+      </div>
 
-<button onclick="location.href='add-source.html'">Add Source</button>
-<button onclick="location.reload()">Refresh</button>
+      <div class="search-card">
+        <div class="search-row">
+          <input id="searchInput" placeholder="Search sources (name or URL)…" />
+          <button class="btn" onclick="clearSearch()">Clear</button>
+        </div>
+        <div class="stats-note"><span id="countsText">Showing 2 web source(s) and 2 document source(s).</span></div>
+      </div>
 
-<br><br>
+      <div class="two-col">
+        <section class="table-card">
+          <div class="section-title">Web Sources</div>
+          <div class="table-wrap">
+            <table id="webTable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Link</th>
+                  <th>Status</th>
+                  <th>Sync</th>
+                  <th>Last update</th>
+                  <th>#Doc</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-href="./source-details.html?id=cancer-council">
+                  <td><strong>Cancer Council</strong></td>
+                  <td><a class="link" href="https://www.cancer.org.au/" target="_blank" rel="noreferrer">https://www.cancer.org.au/</a></td>
+                  <td><span class="badge good">active</span></td>
+                  <td><span class="badge neutral">Daily</span></td>
+                  <td>2026-03-14 09:30</td>
+                  <td><strong>120</strong></td>
+                  <td><div class="cell-actions"><button class="mini-btn" onclick="event.stopPropagation();alert('Demo only')">Delete</button></div></td>
+                </tr>
+                <tr data-href="./source-details.html?id=who-cancer">
+                  <td><strong>WHO Cancer</strong></td>
+                  <td><a class="link" href="https://www.who.int/health-topics/cancer" target="_blank" rel="noreferrer">https://www.who.int/health-topics/cancer</a></td>
+                  <td><span class="badge good">healthy</span></td>
+                  <td><span class="badge neutral">Weekly</span></td>
+                  <td>2026-03-13 18:20</td>
+                  <td><strong>85</strong></td>
+                  <td><div class="cell-actions"><button class="mini-btn" onclick="event.stopPropagation();alert('Demo only')">Delete</button></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tip">Tip: click a row to open KB details.</div>
+        </section>
 
-<table border="1" cellpadding="10" style="border-collapse:collapse;width:100%">
+        <section class="table-card">
+          <div class="section-title">Document Sources</div>
+          <div class="table-wrap">
+            <table id="docTable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Sync</th>
+                  <th>Last update</th>
+                  <th>#Doc</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-href="./source-details.html?id=nccn-guidelines">
+                  <td><strong>NCCN Oncology Guidelines</strong></td>
+                  <td><span class="badge good">active</span></td>
+                  <td><span class="badge neutral">Manual</span></td>
+                  <td>2026-03-11 12:10</td>
+                  <td><strong>42</strong></td>
+                  <td><div class="cell-actions"><button class="mini-btn" onclick="event.stopPropagation();alert('Demo only')">Delete</button></div></td>
+                </tr>
+                <tr data-href="./source-details.html?id=hku-protocols">
+                  <td><strong>HKU Internal Protocols</strong></td>
+                  <td><span class="badge warn">paused</span></td>
+                  <td><span class="badge neutral">Manual</span></td>
+                  <td>2026-03-08 16:45</td>
+                  <td><strong>18</strong></td>
+                  <td><div class="cell-actions"><button class="mini-btn" onclick="event.stopPropagation();alert('Demo only')">Delete</button></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tip">Tip: document sources open the same details screen in this demo.</div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
 
-<tr>
-<th>Name</th>
-<th>Link</th>
-<th>Status</th>
-<th>Sync</th>
-<th>Last Update</th>
-<th>#Doc</th>
-<th>Action</th>
-</tr>
+<script>
+  document.querySelectorAll('tr[data-href]').forEach(function(row){
+    row.addEventListener('click', function(){ location.href = row.getAttribute('data-href'); });
+  });
 
-<tr onclick="location.href='source-details.html?id=1'" style="cursor:pointer">
-<td>Cancer Council</td>
-<td>https://www.cancer.org.au</td>
-<td>Active</td>
-<td>Daily</td>
-<td>2026-03-10</td>
-<td>120</td>
-<td><button>Delete</button></td>
-</tr>
+  function clearSearch(){
+    document.getElementById('searchInput').value='';
+    filterTables('');
+  }
 
-<tr onclick="location.href='source-details.html?id=2'" style="cursor:pointer">
-<td>WHO Cancer</td>
-<td>https://www.who.int</td>
-<td>Healthy</td>
-<td>Weekly</td>
-<td>2026-03-12</td>
-<td>85</td>
-<td><button>Delete</button></td>
-</tr>
+  function filterTables(q){
+    q=(q||'').toLowerCase().trim();
+    let web=0, doc=0;
+    document.querySelectorAll('#webTable tbody tr').forEach(function(tr){
+      const show = !q || tr.innerText.toLowerCase().indexOf(q) >= 0;
+      tr.style.display = show ? '' : 'none';
+      if(show) web++;
+    });
+    document.querySelectorAll('#docTable tbody tr').forEach(function(tr){
+      const show = !q || tr.innerText.toLowerCase().indexOf(q) >= 0;
+      tr.style.display = show ? '' : 'none';
+      if(show) doc++;
+    });
+    document.getElementById('countsText').textContent = 'Showing ' + web + ' web source(s) and ' + doc + ' document source(s).';
+  }
 
-</table>
-
+  document.getElementById('searchInput').addEventListener('input', function(e){
+    filterTables(e.target.value);
+  });
+</script>
 </body>
 </html>
