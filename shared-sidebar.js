@@ -14,6 +14,7 @@
     { key: "nurse-tickets", label: "Nurse Tickets", href: "./nurse-tickets.html", gray: "./assets/file-lines.08dbc7ec491f453696227b1a3407a35e.svg", blue: "./assets/file-lines.08dbc7ec491f453696227b1a3407a35e.svg" },
     { key: "nurse-symptoms", label: "Nurse Symptoms", href: "./nurse-symptoms.html", gray: "./assets/chartGray.svg", blue: "./assets/chartBlue.svg" },
     { key: "trusted-sources", label: "Trusted Sources", href: "./trusted-sources.html", gray: "./assets/databaseGray.svg", blue: "./assets/databaseBlue.svg" },
+    { key: "documents", label: "Documents", href: "./documents.html", gray: "./assets/fileGray.svg", blue: "./assets/fileBlue.svg" },
     { key: "settings", label: "Settings", href: "#", gray: "./assets/settingGray.svg", blue: "./assets/settingBlue.svg" }
   ];
 
