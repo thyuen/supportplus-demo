@@ -7,12 +7,12 @@
   const items = [
     { key: "dashboard", label: "Dashboard", href: "./dashboard.html", gray: "./assets/dashboardGray.svg", blue: "./assets/dashboardBlue.svg" },
     { key: "case-management", label: "Case Management", href: "#", gray: "./assets/clockGray.svg", blue: "./assets/clockBlue.svg" },
-    { key: "nurse-tickets", label: "Nurse Tickets", href: "./nurse-tickets.html", gray: "./assets/file-lines.08dbc7ec491f453696227b1a3407a35e.svg", blue: "./assets/file-lines.08dbc7ec491f453696227b1a3407a35e.svg" },
-    { key: "nurse-symptoms", label: "Nurse Symptoms", href: "./nurse-symptoms.html", gray: "./assets/chartGray.svg", blue: "./assets/chartBlue.svg" },
     { key: "patient-management", label: "Patient Management", href: "#", gray: "./assets/patientGray.svg", blue: "./assets/patientBlue.svg" },
     { key: "carer-management", label: "Carer Management", href: "#", gray: "./assets/carerGray.svg", blue: "./assets/carerBlue.svg" },
     { key: "staff-management", label: "Staff Management", href: "#", gray: "./assets/peopleGray.svg", blue: "./assets/peopleBlue.svg" },
     { key: "audit-log", label: "Audit Log", href: "#", gray: "./assets/auditLogGray.svg", blue: "./assets/auditLogBlue.svg" },
+    { key: "nurse-tickets", label: "Nurse Tickets", href: "./nurse-tickets.html", gray: "./assets/file-lines.08dbc7ec491f453696227b1a3407a35e.svg", blue: "./assets/file-lines.08dbc7ec491f453696227b1a3407a35e.svg" },
+    { key: "nurse-symptoms", label: "Nurse Symptoms", href: "./nurse-symptoms.html", gray: "./assets/chartGray.svg", blue: "./assets/chartBlue.svg" },
     { key: "trusted-sources", label: "Trusted Sources", href: "./trusted-sources.html", gray: "./assets/databaseGray.svg", blue: "./assets/databaseBlue.svg" },
     { key: "settings", label: "Settings", href: "#", gray: "./assets/settingGray.svg", blue: "./assets/settingBlue.svg" }
   ];
