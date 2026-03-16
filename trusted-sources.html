@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Trusted Sources</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body style="padding:40px;font-family:Arial">
+
+<h1>Trusted Sources</h1>
+<p>Manage your knowledge base sources.</p>
+
+<button onclick="location.href='add-source.html'">Add Source</button>
+<button onclick="location.reload()">Refresh</button>
+
+<br><br>
+
+<table border="1" cellpadding="10" style="border-collapse:collapse;width:100%">
+
+<tr>
+<th>Name</th>
+<th>Link</th>
+<th>Status</th>
+<th>Sync</th>
+<th>Last Update</th>
+<th>#Doc</th>
+<th>Action</th>
+</tr>
+
+<tr onclick="location.href='source-details.html?id=1'" style="cursor:pointer">
+<td>Cancer Council</td>
+<td>https://www.cancer.org.au</td>
+<td>Active</td>
+<td>Daily</td>
+<td>2026-03-10</td>
+<td>120</td>
+<td><button>Delete</button></td>
+</tr>
+
+<tr onclick="location.href='source-details.html?id=2'" style="cursor:pointer">
+<td>WHO Cancer</td>
+<td>https://www.who.int</td>
+<td>Healthy</td>
+<td>Weekly</td>
+<td>2026-03-12</td>
+<td>85</td>
+<td><button>Delete</button></td>
+</tr>
+
+</table>
+
+</body>
+</html>
