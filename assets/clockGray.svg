@@ -1,1 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="100%" height="100%" rx="12" fill="#f4f6f8"/><text x="50%" y="54%" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#8a97a6" font-weight="700">clockGray</text></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="20px" viewBox="0 0 18 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>vuesax/linear/timer-pause</title>
+    <g id="Kainan" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dashboard" transform="translate(-22.000000, -204.000000)">
+            <g id="Group-3" transform="translate(-40.000000, 34.000000)">
+                <g id="Group-10-Copy" transform="translate(50.000000, 150.000000)">
+                    <g id="timer-pause" transform="translate(11.000000, 20.000000)">
+                        <path d="M10,18.3333333 C5.97500006,18.3333333 2.70833333,15.0666666 2.70833333,11.0416667 C2.70833333,7.01666673 5.97500006,3.75 10,3.75 C14.0249999,3.75 17.2916667,7.01666673 17.2916667,11.0416667" id="Vector" stroke="#9A9A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0,0" fill-rule="nonzero"></path>
+                        <line x1="10" y1="6.66666667" x2="10" y2="10.8333333" id="Vector" stroke="#9A9A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0,0"></line>
+                        <line x1="7.5" y1="1.66666667" x2="12.5" y2="1.66666667" id="Vector" stroke="#9A9A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0,0"></line>
+                        <line x1="15.8333333" y1="14.1666667" x2="15.8333333" y2="17.5" id="Vector" stroke="#9A9A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0,0"></line>
+                        <line x1="13.3333333" y1="14.1666667" x2="13.3333333" y2="17.5" id="Vector" stroke="#9A9A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0,0"></line>
+                        <path d="M20,0 L20,20 L0,20 L0,0 L20,0 Z" id="Vector" opacity="0"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

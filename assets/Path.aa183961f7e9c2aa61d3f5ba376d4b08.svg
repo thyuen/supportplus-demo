@@ -1,1 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="675" height="483" viewBox="0 0 675 483"><rect width="100%" height="100%" fill="#f1f9fe"/><path d="M0,362.25 C121.5,289.8 256.5,458.84999999999997 371.25000000000006,396.06 C472.49999999999994,338.09999999999997 553.5,265.65000000000003 675,299.46 L675,0 L0,0 Z" fill="#d6e9ff"/><text x="24" y="36" font-family="Arial, sans-serif" font-size="24" fill="#88afda" font-weight="700">Support+</text></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="675px" height="483px" viewBox="0 0 675 483" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Path 2 Copy</title>
+    <g id="Kainan" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Login-Desktop-1024x768-Copy" fill="#D6E9FF">
+            <path d="M93.2328598,350.19859 C46.7865566,364.281413 22.4980422,396.273167 9.28733178,426.483522 C3.29979475,440.175869 0.152254909,461.159711 -0.155287751,489.435049 L-0.155287751,275.703764 L-0.155287751,0.435048916 L669.265064,0.435048916 C680.158377,122.643924 673.377884,203.908861 648.923585,244.229861 C612.242137,304.711361 553.9258,354.477843 447.339555,366.352651 C340.753311,378.227459 210.267115,314.71304 93.2328598,350.19859 Z" id="Path-2-Copy"></path>
+        </g>
+    </g>
+</svg>

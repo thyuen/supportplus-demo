@@ -1,1 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="100%" height="100%" rx="12" fill="#f4f6f8"/><text x="50%" y="54%" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#8a97a6" font-weight="700">peopleGray</text></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="19px" viewBox="0 0 18 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>vuesax/linear/profile-2user</title>
+    <g id="Kainan" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dashboard" transform="translate(-22.000000, -269.000000)">
+            <g id="Group-3" transform="translate(-40.000000, 34.000000)">
+                <g id="Group-10-Copy-2" transform="translate(50.000000, 215.000000)">
+                    <g id="profile-2user" transform="translate(11.000000, 20.000000)">
+                        <path d="M7.35838215,9.05833324 C5.37504872,8.99166657 3.80004883,7.36666679 3.80004883,5.36666671 C3.80004883,3.32500001 5.45004884,1.66666667 7.50004888,1.66666667 C9.54171558,1.66666667 11.2000481,3.32500001 11.2000481,5.36666671 C11.1917148,7.36666679 9.61671551,8.99166657 7.63338208,9.05833324 C7.55004875,9.0499999 7.45004881,9.0499999 7.35838215,9.05833324 Z" id="Vector" stroke="#9A9A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0,0" fill-rule="nonzero"></path>
+                        <path d="M13.6750237,3.33333333 C15.2916904,3.33333333 16.5916904,4.64166671 16.5916904,6.25 C16.5916904,7.82499999 15.3416913,9.10833333 13.7833579,9.16666667 C13.7166913,9.15833333 13.6416911,9.15833333 13.5666911,9.16666667" id="Vector" stroke="#9A9A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0,0" fill-rule="nonzero"></path>
+                        <path d="M3.4666423,17.0249999 C5.75830897,18.5583332 9.51664289,18.5583332 11.8083096,17.0249999 C13.8249763,15.6749999 13.8249763,13.4750001 11.8083096,12.1333334 C9.52497621,10.6083333 5.76664229,10.6083333 3.4666423,12.1333334 C1.44997557,13.4833334 1.44997557,15.6833332 3.4666423,17.0249999 Z" id="Vector" stroke="#9A9A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0,0" fill-rule="nonzero"></path>
+                        <path d="M15.2834066,16.6666667 C15.8834066,16.5416667 16.4500725,16.2999993 16.9167391,15.941666 C18.2167391,14.966666 18.2167391,13.358333 16.9167391,12.383333 C16.4584058,12.0333331 15.9000738,11.8 15.3084071,11.6666667" id="Vector" stroke="#9A9A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0,0" fill-rule="nonzero"></path>
+                        <path d="M20,0 L20,20 L0,20 L0,0 L20,0 Z" id="Vector" opacity="0" transform="translate(10.000000, 10.000000) rotate(-180.000000) translate(-10.000000, -10.000000) "></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
