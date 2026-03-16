@@ -1,57 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Nurse Symptoms</title>
-<link rel="stylesheet" href="style.css">
-</head>
-
-<body style="padding:40px;font-family:Arial">
-
-<h1>Symptom Trends</h1>
-
-<p>Patients with symptom diary entries</p>
-
-<table border="1" cellpadding="10" style="border-collapse:collapse;width:100%">
-
-<tr>
-<th>Patient</th>
-<th>Email</th>
-<th>User ID</th>
-<th>Status</th>
-<th>Entry date</th>
-<th>Submitted</th>
-<th>Entries</th>
-<th>Action</th>
-</tr>
-
-<tr>
-<td>John Chan</td>
-<td>john@email.com</td>
-<td>1023</td>
-<td>Normal</td>
-<td>2026-03-10</td>
-<td>2026-03-10 09:20</td>
-<td>14</td>
-<td>
-<a href="symptom-trends.html?user=1023">View trends</a>
-</td>
-</tr>
-
-<tr>
-<td>Amy Lee</td>
-<td>amy@email.com</td>
-<td>1024</td>
-<td>Urgent</td>
-<td>2026-03-12</td>
-<td>2026-03-12 11:15</td>
-<td>18</td>
-<td>
-<a href="symptom-trends.html?user=1024">View trends</a>
-</td>
-</tr>
-
-</table>
-
-</body>
-</html>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Support Plus - Nurse Symptoms</title><link rel="stylesheet" href="./font.css"/><style>
+body{margin:0;background:#f5f7fb;font-family:Arial,Helvetica,sans-serif;color:#1f2937}
+a{text-decoration:none;color:inherit}
+.layout{display:flex;min-height:100vh}.sidebar{width:250px;background:#fff;position:relative;box-shadow:2px 0 16px rgba(0,0,0,.06)}
+.brand{display:flex;align-items:center;gap:12px;padding:24px 20px;border-bottom:1px solid #eef2f7}.brand img{height:42px}.brand .org{font-size:13px;color:#6b7280}
+.nav{padding:16px 10px 90px}.nav-item{display:flex;align-items:center;gap:12px;padding:14px 14px;border-radius:12px;margin-bottom:8px;color:#6b7280;font-weight:700}.nav-item.active{background:#e7f2ff;color:#00609d}.nav-item img{width:28px;height:28px}.wave{position:absolute;left:0;right:0;bottom:0;width:100%}.version{position:absolute;left:20px;bottom:20px;font-size:14px;color:#4b5563;z-index:2}
+.main{flex:1;padding:28px 28px 40px}.crumbs{font-size:14px;color:#6b7280;margin-bottom:16px}.crumbs a{color:#00609d}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;box-shadow:0 4px 18px rgba(15,23,42,.04)}
+.summary{padding:22px 24px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}.summary h2{margin:0;font-size:24px}.summary p{margin:6px 0 0;color:#6b7280;font-size:14px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid #d1d5db;background:#111827;color:#fff;border-radius:14px;padding:11px 16px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}.btn-light{background:#fff;color:#111827}
+.field label{display:block;font-size:12px;font-weight:700;color:#6b7280;margin-bottom:6px} .field input,.field select{width:100%;box-sizing:border-box;border:1px solid #d1d5db;border-radius:14px;padding:11px 12px;font-size:14px;background:#fff}
+.pill{display:inline-block;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid #d1d5db}.pill.bad{background:#fef2f2;color:#991b1b;border-color:#fecaca}.pill.warn{background:#fffbeb;color:#92400e;border-color:#fde68a}.pill.good{background:#ecfdf5;color:#065f46;border-color:#a7f3d0}.pill.neutral{background:#f3f4f6;color:#111827;border-color:#e5e7eb}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:16px 18px;border-bottom:1px solid #eef2f7;text-align:left;vertical-align:top}th{font-size:12px;color:#6b7280;text-transform:uppercase;letter-spacing:.03em;background:#fafafa}
+.muted{color:#6b7280} .demo-note{position:fixed;right:16px;bottom:16px;background:#0b6aa2;color:#fff;padding:8px 12px;border-radius:999px;font:600 12px Arial,sans-serif;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px} .panel{padding:18px 20px} .panel h3{margin:0 0 14px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:#475569} .kv{display:grid;grid-template-columns:140px 1fr;gap:8px;font-size:14px;margin-bottom:10px}
+.chart-grid{display:grid;grid-template-columns:repeat(2,minmax(280px,1fr));gap:18px} .mini-card{padding:18px} .mini-card h3{margin:0 0 12px;font-size:14px} .mini-meta{font-size:12px;color:#6b7280;margin-bottom:8px}
+@media (max-width:1100px){.grid-2,.chart-grid{grid-template-columns:1fr}.sidebar{width:220px}}@media (max-width:860px){.layout{display:block}.sidebar{width:auto}.main{padding:18px}.nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:24px}.wave,.version{display:none}}
+</style></head><body><div class="layout"><aside class="sidebar"><div class="brand"><img src="./assets/Logo.f79c58a9aa67e29e632bf19ddaf9660c.svg" alt="logo"/><div><div style="font-weight:800;font-size:20px;color:#00609d">Support Plus</div><div class="org">HKU Nurse Portal Demo</div></div></div><nav class="nav"><a class="nav-item " href="./dashboard.html"><img src="./assets/dashboardGray.svg" alt=""/>Dashboard</a><a class="nav-item" href="#"><img src="./assets/clockGray.svg" alt=""/>Case Management</a><a class="nav-item " href="./nurse-tickets.html"><img src="./assets/file-lines.08dbc7ec491f453696227b1a3407a35e.svg" alt=""/>Nurse Tickets</a><a class="nav-item active" href="./nurse-symptoms.html"><img src="./assets/chartBlue.svg" alt=""/>Nurse Symptoms</a><a class="nav-item" href="#"><img src="./assets/patientGray.svg" alt=""/>Patient Management</a><a class="nav-item" href="#"><img src="./assets/carerGray.svg" alt=""/>Carer Management</a><a class="nav-item" href="#"><img src="./assets/peopleGray.svg" alt=""/>Staff Management</a><a class="nav-item" href="#"><img src="./assets/auditLogGray.svg" alt=""/>Audit Log</a><a class="nav-item" href="#"><img src="./assets/settingGray.svg" alt=""/>Settings</a></nav><img class="wave" src="./assets/Wave.b7c9b6667e0b96d1b69eb66433533826.svg" alt=""/><div class="version">v 1.1.7</div></aside><div class="main">
+<div class="crumbs"><a href="./dashboard.html">Dashboard</a> / Nurse Symptoms</div>
+<div class="summary card"><div><h2>Symptom Trends</h2><p>Patients with symptom diary entries. Demo data mirrors the nurse symptoms home page flow.</p></div><div class="toolbar"><div class="field"><label>Window</label><select id="daysFilter"><option>7 days</option><option>30 days</option><option>90 days</option><option selected>180 days</option><option>365 days</option></select></div><div class="field" style="min-width:280px"><label>Search</label><input id="searchInput" placeholder="Search by name, email, or user ID"/></div></div></div>
+<div class="card"><div class="table-wrap"><table><thead><tr><th>Patient</th><th>Email</th><th>User ID</th><th>Status</th><th>Entry date (reported)</th><th>Submitted</th><th>Entries</th><th>Action</th></tr></thead><tbody id="patientBody"></tbody></table></div></div>
+<div style="margin-top:12px" class="muted">Entry date = patient-selected calendar date. Submitted = when they pressed submit.</div>
+<script>
+const patients=[
+{user_id:1023,email:'john.chan@email.com',display_name:'John Chan',status:'Normal',statusClass:'neutral',last_entry_date:'2026-03-10',last_submitted_at:'2026-03-10T09:20:00+08:00',entry_count:14,age:64,cancer:'Lung cancer',doctor:'Dr Lee'},
+{user_id:1024,email:'amy.lee@email.com',display_name:'Amy Lee',status:'Urgent',statusClass:'warn',last_entry_date:'2026-03-12',last_submitted_at:'2026-03-12T11:15:00+08:00',entry_count:18,age:58,cancer:'Breast cancer',doctor:'Dr Wong'},
+{user_id:1025,email:'peter.ng@email.com',display_name:'Peter Ng',status:'Emergency',statusClass:'bad',last_entry_date:'2026-03-15',last_submitted_at:'2026-03-15T19:05:00+08:00',entry_count:9,age:71,cancer:'Colorectal cancer',doctor:'Dr Chan'}
+];
+function fmt(v){return new Date(v).toLocaleString('en-HK',{timeZone:'Asia/Hong_Kong',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})}
+function renderPatients(){const q=document.getElementById('searchInput').value.trim().toLowerCase();const tbody=document.getElementById('patientBody');const rows=patients.filter(p=>!q||p.display_name.toLowerCase().includes(q)||p.email.toLowerCase().includes(q)||String(p.user_id).includes(q));tbody.innerHTML=rows.map(p=>`<tr><td><strong>${p.display_name}</strong><div class="muted">${p.age} y/o • ${p.cancer}</div></td><td>${p.email}</td><td>${p.user_id}</td><td><span class="pill ${p.statusClass}">${p.status}</span><div class="muted" style="margin-top:4px">Under ${p.doctor}</div></td><td>${p.last_entry_date}</td><td>${fmt(p.last_submitted_at)}</td><td>${p.entry_count}</td><td><a class="btn" href="./symptom-trends.html?user=${encodeURIComponent(p.user_id)}">View trends</a></td></tr>`).join('')||'<tr><td colspan="8" class="muted">No patients found.</td></tr>'}
+document.getElementById('searchInput').addEventListener('input',renderPatients); renderPatients();
+</script></div></div><div class="demo-note">Nurse symptoms demo</div></body></html>
