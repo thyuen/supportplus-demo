@@ -1,9 +1,33 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Support Plus - Nurse Tickets</title><link rel="stylesheet" href="./font.css"/><style>
 body{margin:0;background:#f5f7fb;font-family:Arial,Helvetica,sans-serif;color:#1f2937}
 a{text-decoration:none;color:inherit}
-.layout{display:flex;min-height:100vh}.sidebar{width:250px;background:#fff;position:relative;box-shadow:2px 0 16px rgba(0,0,0,.06)}
+.layout{display:flex;min-height:100vh}.sidebar{
+  width:250px;
+  background:#fff;
+  position:relative;
+  box-shadow:2px 0 16px rgba(0,0,0,.06);
+  height:100vh;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
 .brand{display:flex;align-items:center;gap:12px;padding:24px 20px;border-bottom:1px solid #eef2f7}.brand img{height:42px}.brand .org{font-size:13px;color:#6b7280}
-.nav{padding:16px 10px 90px}.nav-item{display:flex;align-items:center;gap:12px;padding:14px 14px;border-radius:12px;margin-bottom:8px;color:#6b7280;font-weight:700}.nav-item.active{background:#e7f2ff;color:#00609d}.nav-item img{width:28px;height:28px}.wave{position:absolute;left:0;right:0;bottom:0;width:100%}.version{position:absolute;left:20px;bottom:20px;font-size:14px;color:#4b5563;z-index:2}
+.nav{padding:16px 10px 180px}.nav-item{display:flex;align-items:center;gap:12px;padding:14px 14px;border-radius:12px;margin-bottom:8px;color:#6b7280;font-weight:700}.nav-item.active{background:#e7f2ff;color:#00609d}.nav-item img{width:28px;height:28px}.wave{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  pointer-events:none;
+}
+.version{
+  position:absolute;
+  left:20px;
+  bottom:20px;
+  font-size:14px;
+  color:#4b5563;
+  z-index:2;
+  pointer-events:none;
+}
 .main{flex:1;padding:28px 28px 40px}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.topbar h1{margin:0;font-size:28px;color:#00609d}.crumbs{font-size:14px;color:#6b7280}.crumbs a{color:#00609d}
 .card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;box-shadow:0 4px 18px rgba(15,23,42,.04)}
 .summary{padding:22px 24px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}.summary h2{margin:0;font-size:24px}.summary p{margin:6px 0 0;color:#6b7280;font-size:14px}.btn{border:1px solid #d1d5db;background:#111827;color:#fff;border-radius:14px;padding:11px 16px;font-weight:700;cursor:pointer}.btn-light{background:#fff;color:#111827}.filters{padding:18px 24px;border-top:1px solid #eef2f7;border-bottom:1px solid #eef2f7}.filters-grid{display:grid;grid-template-columns:2fr repeat(4,minmax(140px,1fr));gap:12px}.field label{display:block;font-size:12px;font-weight:700;color:#6b7280;margin-bottom:6px}.field input,.field select,.reply-box textarea{width:100%;box-sizing:border-box;border:1px solid #d1d5db;border-radius:14px;padding:11px 12px;font-size:14px;background:#fff}.pager{display:flex;align-items:center;gap:10px;padding:16px 24px}.pill{display:inline-block;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid #d1d5db}.pill.bad{background:#fef2f2;color:#991b1b;border-color:#fecaca}.pill.warn{background:#fffbeb;color:#92400e;border-color:#fde68a}.pill.good{background:#ecfdf5;color:#065f46;border-color:#a7f3d0}.pill.neutral{background:#f3f4f6;color:#111827;border-color:#e5e7eb}
