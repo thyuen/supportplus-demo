@@ -412,7 +412,7 @@ Registered users who verified by palliative care nurse can also record your symp
 <!-- Support+ Floating Chat Widget -->
 <div id="sp-chat-widget">
 	<button id="sp-chat-launcher" aria-label="Open chat">
-		<img class="sp-chat-launcher-icon" src="./assets/auntie to hku V2-12.png" alt="chat icon" class="icon-img">
+		<img class="sp-chat-launcher-icon" src="./assets/auntie to hku V2-12.png" alt="chat icon">
 		<span class="sp-chat-launcher-text">Talk with Auntie Care</span>
 	</button>
   
@@ -420,7 +420,7 @@ Registered users who verified by palliative care nurse can also record your symp
 	  <div class="sp-chat-card">
 		<div class="sp-chat-header">
 		  <div class="sp-chat-header-left">
-			<img class="sp-chat-avatar-img" src="./assets/auntie to hku V2-12.png" alt="Auntie Care" class="icon-img">
+			<img class="sp-chat-avatar-img" src="./assets/auntie to hku V2-12.png" alt="Auntie Care">
 			<div>
 				<div class="sp-chat-title">Auntie Care</div>
 				<div class="sp-chat-subtitle">
@@ -498,10 +498,6 @@ Registered users who verified by palliative care nurse can also record your symp
 	  box-shadow: 0 14px 36px rgba(37, 99, 235, 0.42);
 	}
   
-	.sp-chat-launcher-icon {
-	  font-size: 18px;
-	  line-height: 1;
-	}
   
 	.sp-chat-launcher-text {
 	  font-size: 14px;
@@ -710,24 +706,28 @@ Registered users who verified by palliative care nurse can also record your symp
 		height: 320px;
 	  }
 	}
-	.sp-chat-avatar-img {
-	width: 40px;
-	height: 40px;
-	border-radius: 999px;
-	object-fit: cover;
-	}
+	.sp-chat-launcher-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+  flex: 0 0 28px;
+}
+
+.sp-chat-avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  object-fit: cover;
+  display: block;
+  flex: 0 0 40px;
+}
 
 	.sp-chat-time {
 	font-size: 10px;
 	opacity: 0.6;
 	margin-top: 6px;
 	text-align: right;
-	}
-	.icon-img {
-	width: 24px;
-	height: 24px;
-	object-fit: contain;
-	display: inline-block;
 	}
   </style>
   
