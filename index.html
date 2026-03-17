@@ -412,18 +412,20 @@ Registered users who verified by palliative care nurse can also record your symp
 <!-- Support+ Floating Chat Widget -->
 <div id="sp-chat-widget">
 	<button id="sp-chat-launcher" aria-label="Open chat">
-	  <span class="sp-chat-launcher-icon">💬</span>
-	  <span class="sp-chat-launcher-text">Chat with Support+</span>
+		<img class="sp-chat-launcher-icon" src="./assets/auntie to hku V2-12.png" alt="chat icon">
+		<span class="sp-chat-launcher-text">Talk with Auntie Care</span>
 	</button>
   
 	<div id="sp-chat-panel" aria-hidden="true">
 	  <div class="sp-chat-card">
 		<div class="sp-chat-header">
 		  <div class="sp-chat-header-left">
-			<div class="sp-chat-avatar">S+</div>
+			<img class="sp-chat-avatar-img" src="./assets/auntie to hku V2-12.png" alt="Auntie Care">
 			<div>
-			  <div class="sp-chat-title">Support+</div>
-			  <div class="sp-chat-subtitle">We are here to help</div>
+				<div class="sp-chat-title">Auntie Care</div>
+				<div class="sp-chat-subtitle">
+					The chatbot is an AI system. The chatbot is not a doctor, nurse, or healthcare professional. Information provided is for education only.
+				</div>
 			</div>
 		  </div>
 		  <button id="sp-chat-close" class="sp-chat-icon-btn" aria-label="Close chat">✕</button>
@@ -434,9 +436,10 @@ Registered users who verified by palliative care nurse can also record your symp
   
 		  <div class="sp-chat-message sp-chat-message-agent">
 			<div class="sp-chat-bubble">
-			  Hello 👋 Welcome to Support+.
+			  👋 Welcome to Auntie Care.
+		  
 			  <br><br>
-			  This is a UI/UX demo of the floating support widget.
+			  ⚠️ Disclaimer: You are chatting with an AI chatbot designed to provide general educational information. It cannot diagnose conditions or provide medical treatment. If you are worried about symptoms, please contact your healthcare team or seek urgent medical care.
 			</div>
 		  </div>
   
@@ -454,13 +457,14 @@ Registered users who verified by palliative care nurse can also record your symp
 		</div>
   
 		<div class="sp-chat-footer">
-		  <input
-			id="sp-chat-input"
-			type="text"
-			placeholder="Type your message..."
-			aria-label="Type your message"
-		  />
-		  <button id="sp-chat-send" aria-label="Send message">➜</button>
+			<button id="sp-chat-photo" class="sp-chat-icon-btn" title="Upload photo">📷</button>
+		  
+			<input id="sp-chat-input" type="text" placeholder="Type your message..." />
+			<button id="sp-chat-voice" class="sp-chat-icon-btn" title="Voice input">🎤</button>
+		  
+			<button id="sp-chat-send">➜</button>
+		  
+			<input type="file" id="sp-chat-file" accept="image/*" hidden>
 		</div>
 	  </div>
 	</div>
@@ -706,6 +710,19 @@ Registered users who verified by palliative care nurse can also record your symp
 		height: 320px;
 	  }
 	}
+	.sp-chat-avatar-img {
+	width: 40px;
+	height: 40px;
+	border-radius: 999px;
+	object-fit: cover;
+	}
+
+	.sp-chat-time {
+	font-size: 10px;
+	opacity: 0.6;
+	margin-top: 6px;
+	text-align: right;
+	}
   </style>
   
   <script>
@@ -717,6 +734,21 @@ Registered users who verified by palliative care nurse can also record your symp
 	  const sendBtn = document.getElementById("sp-chat-send");
 	  const body = document.querySelector(".sp-chat-body");
 	  const quickButtons = document.querySelectorAll(".sp-quick-btn");
+	  const photoBtn = document.getElementById("sp-chat-photo");
+	const voiceBtn = document.getElementById("sp-chat-voice");
+	const fileInput = document.getElementById("sp-chat-file");
+
+	photoBtn.addEventListener("click", () => fileInput.click());
+
+	fileInput.addEventListener("change", () => {
+	if (fileInput.files.length > 0) {
+		addUserMessage("📷 Photo uploaded: " + fileInput.files[0].name);
+	}
+	});
+
+	voiceBtn.addEventListener("click", () => {
+	alert("Voice input demo (to be integrated with Speech API)");
+	});
   
 	  function openChat() {
 		panel.classList.add("sp-open");
@@ -730,30 +762,36 @@ Registered users who verified by palliative care nurse can also record your symp
 	  }
   
 	  function addUserMessage(text) {
-		const wrapper = document.createElement("div");
-		wrapper.className = "sp-chat-message sp-chat-message-user";
+	const wrapper = document.createElement("div");
+	wrapper.className = "sp-chat-message sp-chat-message-user";
+
+	const bubble = document.createElement("div");
+	bubble.className = "sp-chat-bubble";
+
+	const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+	bubble.innerHTML = text + `<div class="sp-chat-time">${time}</div>`;
+
+	wrapper.appendChild(bubble);
+	body.appendChild(wrapper);
+	body.scrollTop = body.scrollHeight;
+	}
   
-		const bubble = document.createElement("div");
-		bubble.className = "sp-chat-bubble";
-		bubble.textContent = text;
-  
-		wrapper.appendChild(bubble);
-		body.appendChild(wrapper);
-		body.scrollTop = body.scrollHeight;
-	  }
-  
-	  function addAgentMessage(text) {
-		const wrapper = document.createElement("div");
-		wrapper.className = "sp-chat-message sp-chat-message-agent";
-  
-		const bubble = document.createElement("div");
-		bubble.className = "sp-chat-bubble";
-		bubble.textContent = text;
-  
-		wrapper.appendChild(bubble);
-		body.appendChild(wrapper);
-		body.scrollTop = body.scrollHeight;
-	  }
+	function addAgentMessage(text) {
+	const wrapper = document.createElement("div");
+	wrapper.className = "sp-chat-message sp-chat-message-agent";
+
+	const bubble = document.createElement("div");
+	bubble.className = "sp-chat-bubble";
+
+	const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+	bubble.innerHTML = text + `<div class="sp-chat-time">${time}</div>`;
+
+	wrapper.appendChild(bubble);
+	body.appendChild(wrapper);
+	body.scrollTop = body.scrollHeight;
+	}
   
 	  function sendMessage() {
 		const text = input.value.trim();
